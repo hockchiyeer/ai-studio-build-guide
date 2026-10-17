@@ -218,4 +218,4 @@ This is an independent educational resource. It is **not affiliated with, endors
 
 ## License
 
-Add a license of your choice before publishing (for example [MIT](https://choosealicense.com/licenses/mit/) for code and [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) for tutorial content), then replace this section with the license name and a `LICENSE` file link.
+Please refer to [LICENSE.txt](./LICENSE.txt)
