@@ -29,7 +29,7 @@ The whole app ships as **one self-contained HTML file** (React, Tailwind CSS, al
 
 ## Features
 
-- **15 hands-on modules** (Module 0–14) covering the full journey from introduction to deployment, plus Remix, a real-world case study and a System Instructions / rules-file module.
+- **14 hands-on modules** (Module 0–13) covering the full journey from introduction to deployment, plus Remix, a real-world case study and a System Instructions / rules-file module.
 - **Reorderable chapters:** drag chapters in the sidebar to change their order. Numbers, titles, in-text "Module N" references and the contents list follow the new order in EN, ZH and BM. Introduction always stays first.
 - **Three languages:** English (EN), Chinese (ZH) and Malay (BM), switchable instantly from the header.
 - **Interactive progress tracking:** a checklist in every module, with a live progress ring and percentage in the sidebar.
@@ -47,20 +47,19 @@ The whole app ships as **one self-contained HTML file** (React, Tailwind CSS, al
 | # | Module |
 |---|--------|
 | 0 | Introduction — What is Google AI Studio Build? |
-| 1 | Prerequisites & Model Selection — What You Actually Need |
-| 2 | Accessing Google AI Studio — First Open |
-| 3 | Anatomy of the Build Interface — 4 Panels |
-| 4 | Prompt Engineering Formula for ANY Non-AI App |
-| 5 | Building Your First App — Inventory Manager Hands-On |
-| 6 | Iterating & Refining — Talk to Your App |
-| 7 | Understanding Generated Code — React + TypeScript |
-| 8 | Testing & Debugging — When Preview Fails |
-| 9 | Export & Local Development + Android Build |
-| 10 | Deployment & Sharing — Go Live in One Click |
-| 11 | Accessibility, Best Practices, FAQ & Next Steps |
-| 12 | Remix — Build Faster by Adapting Public Apps |
-| 13 | Real-World Case Study — A Small-Business App Built in 113 Prompts |
-| 14 | System Instructions & Rules File — Keep Every AI Response on Track |
+| 1 | Prerequisites, Access & Model Selection — Get Ready, First Open, Pick a Model |
+| 2 | Anatomy of Build Interface — 4 Panels |
+| 3 | Prompt Engineering Formula for ANY Non-AI App |
+| 4 | Building First App — Inventory Manager Hands-On |
+| 5 | Iterating & Refining — Talk to Your App |
+| 6 | Understanding Generated Code — React + TypeScript |
+| 7 | Testing & Debugging — When Preview Fails |
+| 8 | Export & Local Development + Android Build |
+| 9 | Deployment & Sharing — Go Live in One Click |
+| 10 | Accessibility, Best Practices, FAQ & Next Steps |
+| 11 | Remix — Build Faster by Adapting Public Apps |
+| 12 | Real-World Case Study — A Small-Business App Built in 113 Prompts |
+| 13 | System Instructions & Rules File — Keep Every AI Response on Track |
 
 The core teaching device is the **universal prompt formula**:
 
