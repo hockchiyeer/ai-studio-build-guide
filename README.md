@@ -12,6 +12,7 @@ The whole app ships as **one self-contained HTML file** (React, Tailwind CSS, al
 - [Tutorial content](#tutorial-content)
 - [Quick start](#quick-start)
 - [Usage](#usage)
+- [Editing content (form editor)](#editing-content-form-editor)
 - [Download the printable guide](#download-the-printable-guide)
 - [Printing and PDF export](#printing-and-pdf-export)
 - [Accessibility](#accessibility)
@@ -38,6 +39,7 @@ The whole app ships as **one self-contained HTML file** (React, Tailwind CSS, al
 - **Prompt library:** ready-made non-AI app prompt templates built on the universal formula.
 - **Tables, callouts, FAQs, tips and screenshots** (each image is labelled *real* or *illustrative*), with a click-to-expand image viewer.
 - **Accessibility controls:** font size (A− / A / A+), high-contrast mode and dyslexia-friendly mode.
+- **Hidden form-based content editor:** edit every module's text in EN, ZH and BM and upload or move images, without touching the code (see [Editing content](#editing-content-form-editor)).
 - **One-click printable guide:** the **Download** button exports the entire guide in the current language and chapter order as one plain, accessible HTML page.
 - **Back-to-top button** at the end of every chapter in the downloaded guide (works in the browser and in the saved PDF).
 - **Print-optimized layout** for Letter and A4 portrait with no large blank areas.
@@ -108,8 +110,21 @@ An internet connection is only needed for Google Fonts (Inter, Noto Sans, Noto S
 | Change text size | **A−**, **A**, **A+** in the header |
 | High contrast / dyslexia-friendly | Toggle buttons in the header |
 | Export the guide | **Download** button in the header |
+| Edit content | `Ctrl`+`Alt`+`E`, or open the page with `?edit` added to the address |
 
 Checklist progress is held in memory for the current session only; your chapter order is remembered in the browser (see [Known limitations](#known-limitations)).
+
+## Editing content (form editor)
+
+The editor is hidden, so the page looks and behaves exactly as before until you open it with `Ctrl`+`Alt`+`E` (or add `?edit` to the page address, e.g. `index.html?edit`).
+
+- **Text:** pick a language and a module, then edit titles, summaries, paragraphs, steps, checklists, tips, cards, callouts, tables, prompts, code examples and FAQs in form fields. Items can be added, removed and reordered with the ↑ ↓ ✕ buttons.
+- **Images:** each image is placed by a raw token such as `@@IMG_M3b@@`. Move an image by reordering it (↑ / ↓), choosing another position (Main, Gallery or After code), or editing the token text. **Upload / replace…** and **+ Upload new image…** add your own picture (resized to at most 1920 px wide and stored as WebP) and fill in its token. Captions and alt text are edited per language; by default, image position changes apply to EN, ZH and BM together.
+- **Modules (create, read, update, delete):** the **Modules** bar adds a blank module (**+ New module**), copies the current one (**Duplicate this module**) or removes it (**Delete this module**) in EN, ZH and BM together. The sidebar and numbering update after **Save**; new modules appear last and can be dragged in the sidebar like any other. Module 0 (Introduction) cannot be deleted, a module whose prompt another module copies cannot be deleted until that module is edited, and deleted original modules can be brought back with **Restore deleted…**.
+- **Save:** applies your edits to the page immediately and keeps them in this browser (`localStorage`, key `aisg-content-v1`). **Revert module** puts a module back to its original text.
+- **Make it permanent:** **Save as HTML** downloads a new `index.html` with your edits built in; replace the old file with it to publish. **Export JSON** / **Import JSON** move edits between browsers.
+- **Not covered:** interface labels (buttons and headings in the header and sidebar) and the default module order (reorder in the sidebar instead).
+- **Cancel** discards all unsaved edits, additions and deletions after a confirmation.
 
 ## Download the printable guide
 
@@ -172,6 +187,7 @@ Inside the bundle:
 - **Content data** — module text, tables, prompts, checklists, FAQs and image data in EN / ZH / BM.
 - **`eh()`** — the main React component (UI, search, progress, accessibility toggles).
 - **`mxoLoad()` / `mxoBuild()` / `mxoRemap()`** — load the saved chapter order, build the ordered and renumbered module list, and rewrite in-text "Module N" references (EN `Module N`, ZH `模块N`, BM `Modul N`). The order is stored in `localStorage` under `aisg-chapter-order`.
+- **`__aisgInit()` / `__aisgRefresh()`** — the content editor's hooks: `__aisgInit` applies saved edits to the module data and image table right after they are defined; `__aisgRefresh` re-renders the page after a Save. The editor itself is the `<script id="aisg-editor">` block; baked edits live in `<script id="aisg-content-overrides">`.
 - **`ah()`** — the generator behind the **Download** button. It builds the standalone printable HTML page from the ordered module list, including its embedded CSS (screen and `@media print`) and the back-to-top buttons.
 
 ## Customization notes
@@ -182,7 +198,7 @@ Since this is a minified bundle, edits are best made with care:
 - **Back-to-top button label or behavior:** search for `class="totop"` inside `ah()`; the target is `id="top"` on the generated `<header>`.
 - **Theme colours:** CSS variables such as `--accent`, `--bg`, `--surface`, `--text` and `--border` near the top of the stylesheet.
 - **Languages:** UI strings and module content are keyed by `EN`, `ZH` and `BM`; the language helper `E(en, zh, bm)` is used for inline strings.
-- **Adding a chapter:** append a module object with the next free `id` to each of the `EN`, `ZH` and `BM` arrays. Saved orders keep working and place the new chapter last. Write in-text references as `Module N` so they renumber automatically.
+- **Adding a chapter:** use **+ New module** in the content editor, or, in the code, append a module object with the next free `id` to each of the `EN`, `ZH` and `BM` arrays. Saved orders keep working and place the new chapter last. Write in-text references as `Module N` so they renumber automatically.
 - **Pinned chapter:** Introduction (`id: 0`) is fixed first; to change that, edit `mxoLoad()`, `mvTo()` and the `k.id!==0` checks in the sidebar code.
 
 Always re-test the live page, the **Download** button and a **Print to PDF** after any change.
@@ -201,7 +217,7 @@ Current versions of Chrome, Edge, Firefox and Safari (desktop and mobile). The C
 
 ## Known limitations
 
-- **Limited persistence:** checklist progress is not saved between page reloads; only the chapter order is remembered, per browser and device.
+- **Limited persistence:** checklist progress is not saved between page reloads; only the chapter order and content-editor edits are remembered, per browser and device (use **Save as HTML** to share edits).
 - **Reordering** applies to the live page. A downloaded guide keeps the order it was exported with, and drag and drop may not work on some touch browsers (use the ▲▼ buttons).
 - **Clipboard** may be unavailable on insecure origins.
 - **Fonts** require internet access; otherwise system fonts are used.
